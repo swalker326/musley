@@ -1,0 +1,17 @@
+{
+  "name": "musley",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "turbo dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "turbo": "^2.4.2"
+  },
+  "packageManager": "pnpm@10.3.0"
+}
