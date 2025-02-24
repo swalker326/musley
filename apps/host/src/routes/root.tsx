@@ -1,20 +1,12 @@
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
-import {
-  createRootRouteWithContext,
-  Link,
-  Outlet
-} from "@tanstack/react-router";
-
-export type Auth = {
-  login: (username: string) => void;
-  logout: () => void;
-  status: "loggedOut" | "loggedIn";
-  username?: string;
-};
+import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
+import { Header } from "../components/header";
+import { AuthContextType } from "../providers/AuthProvider";
+import { NavBar } from "../components/navbar";
 
 export const RootRoute = createRootRouteWithContext<{
-  auth: Auth;
+  auth: AuthContextType;
   queryClient: QueryClient;
 }>()({
   loader: ({ context: { queryClient } }) => {
@@ -24,23 +16,21 @@ export const RootRoute = createRootRouteWithContext<{
     const { data } = useQuery({
       queryKey: ["root"],
       queryFn: async () => {
-        const response = await fetch("http://localhost:8787/api/status", { method: "GET" });
+        const response = await fetch("http://localhost:8787/api/status", {
+          method: "GET"
+        });
         return await response.json();
       }
     });
     console.log(data);
     return (
       <div>
-        <nav>
-          <ul className="flex gap-1 text-gray-800">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/remote">Remote</Link>
-            </li>
-          </ul>
-        </nav>
+        <div className="flex items-center justify-between bg-gray-800">
+          <NavBar />
+          <div className="p-4">
+            <Header />
+          </div>
+        </div>
         <Outlet />
         <TanStackRouterDevtools position="bottom-right" />
       </div>

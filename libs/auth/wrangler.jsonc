@@ -2,22 +2,20 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "api",
   "main": "src/index.ts",
-  "compatibility_date": "2025-02-23",
   "dev": {
-    "port": 8787
-  }
-  // "compatibility_flags": [
-  //   "nodejs_compat"
-  // ],
+    "port": 8080
+  },
+  "compatibility_date": "2025-02-23",
+  "compatibility_flags": ["nodejs_compat"],
   // "vars": {
   //   "MY_VAR": "my-variable"
   // },
-  // "kv_namespaces": [
-  //   {
-  //     "binding": "MY_KV_NAMESPACE",
-  //     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-  //   }
-  // ],
+  "kv_namespaces": [
+    {
+      "binding": "MUSLEY_AUTH",
+      "id": "428ada5acfb34152ad376c4789e1900d"
+    }
+  ]
   // "r2_buckets": [
   //   {
   //     "binding": "MY_BUCKET",

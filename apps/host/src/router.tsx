@@ -1,8 +1,9 @@
 import { createRouter } from "@tanstack/react-router";
 import { RootRoute, IndexRoute, EmailRemote } from "./routes";
+import { CallbackRoute } from "./routes/callback";
 import { QueryClient } from "@tanstack/react-query";
 
-const routeTree = RootRoute.addChildren([IndexRoute, EmailRemote]);
+const routeTree = RootRoute.addChildren([IndexRoute, EmailRemote, CallbackRoute]);
 
 export const queryClient = new QueryClient();
 

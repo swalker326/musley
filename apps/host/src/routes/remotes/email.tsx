@@ -1,9 +1,9 @@
 import { createRoute } from "@tanstack/react-router";
 import { RemoteEntry } from "email/RemoteEntry";
-import { RootRoute } from "./root";
+import { RootRoute } from "../root";
 
 export const EmailRemote = createRoute({
   getParentRoute: () => RootRoute,
-  path: "/remote",
+  path: "/email",
   component: () => <RemoteEntry />
 });
