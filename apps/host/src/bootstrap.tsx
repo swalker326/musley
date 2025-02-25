@@ -5,6 +5,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import { AuthProvider } from "./providers/AuthProvider";
 import { RouterWrapper } from "./RouterWrapper";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const rootEl = document.getElementById("root");
 
@@ -15,6 +16,7 @@ if (rootEl) {
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
           <RouterWrapper />
+          <ReactQueryDevtools initialIsOpen={false} position="left" />
         </QueryClientProvider>
       </AuthProvider>
     </React.StrictMode>

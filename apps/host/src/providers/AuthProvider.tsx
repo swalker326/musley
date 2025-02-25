@@ -13,7 +13,6 @@ const client = createClient({
   issuer: "http://localhost:8080"
 });
 
-console.log(client)
 export interface AuthContextType {
   userId?: string;
   loaded: boolean;
@@ -104,7 +103,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           challenge.verifier
         );
         if (!exchanged.err) {
-          console.log("TOKEN", token.current);
           token.current = exchanged.tokens?.access;
           localStorage.setItem("refresh", exchanged.tokens.refresh);
         }
@@ -114,13 +112,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function user() {
-    const res = await fetch("http://localhost:8080", {
+    const res = await fetch("http://localhost:8787/api/status", {
       headers: {
         Authorization: `Bearer ${token.current}`
       }
     });
-    console.log("client after fetch", client);
-    console.log("RES", res);
+
     if (res.ok) {
       setUserId(await res.text());
       setLoggedIn(true);

@@ -7,5 +7,8 @@ export default defineConfig({
   server: {
     port: 3000
   },
-  plugins: [pluginReact(), pluginModuleFederation(mfConfig)]
+  plugins: [pluginReact(), pluginModuleFederation(mfConfig)],
+  source: {
+    tsconfigPath: "./tsconfig.json"
+  }
 });

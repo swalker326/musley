@@ -1,8 +1,12 @@
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
-import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
+import {
+  createRootRouteWithContext,
+  Outlet,
+  redirect
+} from "@tanstack/react-router";
 import { Header } from "../components/header";
-import { AuthContextType } from "../providers/AuthProvider";
+import { AuthContextType, useAuth } from "../providers/AuthProvider";
 import { NavBar } from "../components/navbar";
 
 export const RootRoute = createRootRouteWithContext<{
@@ -13,23 +17,25 @@ export const RootRoute = createRootRouteWithContext<{
     queryClient.ensureQueryData({ queryKey: ["root"] });
   },
   component: () => {
+    const { getToken } = useAuth();
     const { data } = useQuery({
       queryKey: ["root"],
       queryFn: async () => {
-        const response = await fetch("http://localhost:8787/api/status", {
-          method: "GET"
+        const token = await getToken();
+        if (!token) return redirect({ to: "/login" });
+        const response = await fetch("http://localhost:8787/api/user", {
+          headers: {
+            Authorization: `Bearer ${token} `
+          }
         });
         return await response.json();
       }
     });
-    console.log(data);
     return (
       <div>
-        <div className="flex items-center justify-between bg-gray-800">
+        <div className="flex items-center justify-between bg-gray-300">
           <NavBar />
-          <div className="p-4">
-            <Header />
-          </div>
+          <Header />
         </div>
         <Outlet />
         <TanStackRouterDevtools position="bottom-right" />
